@@ -12,5 +12,9 @@ login:
     defaults: { _controller: 'Runalyze\HomeController::loginAction' }
     
 settings:
-    path: /settings
-    defaults: { _controller: 'Runalyze\Settingontroller::homeAction' }
+    path: /settings/{key}
+    defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
+    
+site:
+    path: /site/{sitename}
+    defaults: { _controller: 'Runalyze\HomeController::SiteAction' }

@@ -144,4 +144,9 @@ class HomeController
         <?php
         return '';
             }
+            
+    public function SiteAction(Application $app, $sitename)
+    {
+        return new Response($app['twig']->render($sitename.'.twig'));
+    }
 }
