@@ -229,4 +229,11 @@ if ($Plugin !== null) {
 }
 });
 
+$app->match('/site/{name}', function(Request $request) use($app) {
+    
+    return $app['twig']->render($request->get('name').'.twig');
+});
+
+
+
 $app->run();
