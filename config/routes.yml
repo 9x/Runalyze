@@ -1,0 +1,16 @@
+# config/routes.yml
+
+app:
+    path: /
+    defaults: { _controller: 'Runalyze\HomeController::appAction' }
+activity:
+    path: /activity
+    defaults: { _controller: 'Runalyze\ActivityController::homeAction' }
+    
+login:
+    path: /login
+    defaults: { _controller: 'Runalyze\HomeController::loginAction' }
+    
+settings:
+    path: /settings
+    defaults: { _controller: 'Runalyze\Settingontroller::homeAction' }

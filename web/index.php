@@ -1,10 +1,13 @@
 <?php
 require '../inc/class.Frontend.php';
-use Symfony\Component\HttpFoundation\Request;
-use Runalyze\View\Activity\Context;
-//$Frontend = new Frontend(true);
 require_once '../vendor/autoload.php';
-$app = new \Silex\Application();
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Routing\RouteCollection;
+use Silex\Application;
+
+
+$app = new Application();
 $app['debug'] = true;
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => '../view',
@@ -20,6 +23,15 @@ $app['twig']->registerUndefinedFunctionCallback(function ($name) {
 
 	return false;
 });
+$app['routes'] = $app->extend('routes', function (RouteCollection $routes, Application $app) {
+    $loader     = new YamlFileLoader(new FileLocator(__DIR__ . '/../config'));
+    $collection = $loader->load('routes.yml');
+    $routes->addCollection($collection);
+ 
+    return $routes;
+});
+ /*
+
 
 function userStat() {
     DB::getInstance()->stopAddingAccountID();
@@ -233,7 +245,6 @@ $app->match('/site/{name}', function(Request $request) use($app) {
     
     return $app['twig']->render($request->get('name').'.twig');
 });
-
-
+*/
 
 $app->run();

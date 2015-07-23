@@ -4,6 +4,8 @@
         "silex/silex": "~1.3",
         "monolog/monolog": "1.*",
         "symfony/routing": "2.*",
+        "symfony/finder": "2.*",
+        "symfony/config": "2.*",
         "symfony/class-loader": "@stable",
         "symfony/http-foundation": "2.5.*",
         "symfony/event-dispatcher": "2.5.*",
@@ -12,5 +14,10 @@
         "symfony/twig-bridge": "@stable",
         "swiftmailer/swiftmailer": "@stable",
         "twig/extensions": "^1.2"
+    },
+    "autoload":{
+        "psr-0":{
+            "":"src/"
+        }
     }
 }
