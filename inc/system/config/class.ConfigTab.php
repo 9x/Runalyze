@@ -98,6 +98,6 @@ abstract class ConfigTab {
 	 * @return string
 	 */
 	final public function getUrl() {
-		return 'call/window.config.php?key='.$this->key;
+		return 'settings/'.$this->key;
 	}
 }

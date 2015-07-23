@@ -73,13 +73,13 @@ class SessionAccountHandler {
 
 		if (!$this->tryToUseSession()) {
 			if ($this->tryToLoginFromPost()) {
-				header('Location: '.System::getFullDomain().'index.php');
+				header('Location: '.System::getFullDomain().'/');
 				exit;
 			} elseif ($this->tryToLoginFromCookie()) {
-				header('Location: '.System::getFullDomain().'index.php');
+				header('Location: '.System::getFullDomain().'/');
 				exit;
 			} elseif (self::$USER_MUST_LOGIN && !$this->isOnLoginPage() && !$this->isOnAdminPage()) {
-				header('Location: '.System::getFullDomain().'login.php');
+				header('Location: '.System::getFullDomain().'login');
 				exit;
 			}
 		}
@@ -95,7 +95,7 @@ class SessionAccountHandler {
 	 * @return boolean
 	 */
 	private function isOnLoginPage() {
-		return substr(Request::Basename(), 0, 9) == 'login.php';
+		return substr(Request::Basename(), 0, 9) == 'login';
 	}
 
 	/**

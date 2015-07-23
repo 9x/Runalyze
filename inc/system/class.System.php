@@ -14,7 +14,7 @@ class System {
 	 * @return string 
 	 */
 	static public function getCodeForLocalJSFiles() {
-		return '<script src="web/assets/js/runalyze.js"></script>';
+		return '<script src="assets/js/runalyze.js"></script>';
 	}
 
 	/**
@@ -30,8 +30,8 @@ class System {
 	 * @return string 
 	 */
 	static public function getCodeForAllCSSFiles() {
-		$assets = '<link rel="stylesheet" href="web/assets/css/runalyze-v2.1.css">';
-		$assets .= '<link rel="stylesheet" href="web/vendor/font-awesome/css/font-awesome.min.css">';
+		$assets = '<link rel="stylesheet" href="assets/css/runalyze-v2.1.css">';
+		$assets .= '<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">';
 
 		return $assets;
 	}

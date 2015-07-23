@@ -23,7 +23,7 @@ class DataBrowserLinker {
 		if (FrontendShared::$IS_SHOWN)
 			return DataBrowserShared::getLink($name, $start, $end, $title = '');
 
-		$href = 'call/call.DataBrowser.display.php?start='.$start.'&end='.$end;
+		$href = 'databrowser?start='.$start.'&end='.$end;
 
 		return Ajax::link($name, DATA_BROWSER_ID, $href, $rel, $title);
 	}

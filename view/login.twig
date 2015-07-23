@@ -56,14 +56,14 @@
                 <aside class="loginBox">
                     <div id="login" class="boxWrapper{% if switchpath == 'login' %} active{% endif %}">
                         
-                        <form action="login.php" method="post">
+                        <form action="login" method="post">
                             <fieldset>
                                 <legend>{% trans "Login" %} <!--{% trans "Please login" %}--></legend>
                                 
                                 <div class="">
                                     <label for="username">
                                         {% trans "Username" %}
-                                        <input id="username" name="username" class="" type="text" value="{{ post.username }}">
+                                        <input id="username" name="username" class="" type="text" value="">
                                     </label>
                                     {% if errorType == 1 %}
                                     <small class="error">wrong username</small>
@@ -108,9 +108,9 @@
                                 <div class="w100 block">
                                     <label for="new_username">{% trans %}Username{% endtrans %}</label> 
                                     <span class="input-with-unit">
-                                        <input type="text" name="new_username" value="{{ post.new_username }}" id="new_username" class="middle-size">
+                                        <input type="text" name="new_username" value="" id="new_username" class="middle-size">
                                     </span>
-                                  {% if regError.new_username %}
+                                  {% if regError.new_username is defined %}
                                          <small class="error">{{ regError.new_username }}</small>
                                     {% endif %}
                                 </div>
@@ -118,7 +118,7 @@
                                 <div class="w100 block ">
                                     <label for="name">{% trans %}Name{% endtrans %}</label> 
                                     <span class="input-with-unit">
-                                        <input type="text" name="name" value="{{ post.name }}" id="name" class="middle-size">
+                                        <input type="text" name="name" value="" id="name" class="middle-size">
                                     </span>
                                 </div>
 
@@ -127,7 +127,7 @@
                                     <span class="input-with-unit">
                                         <input type="text" name="email" value="" id="email" class="middle-size">
                                     </span>
-                                    {% if regError.email %}
+                                    {% if regError.email is defined %}
                                          <small class="error">{{ regError.email }}</small>
                                     {% endif %}
                                 </div>
@@ -137,7 +137,7 @@
                                     <span class="input-with-unit">
                                         <input type="password" name="password" value="" id="password" class="middle-size">
                                     </span>
-                                    {% if regError.password %}
+                                    {% if regError.password is defined%}
                                          <small class="error">{{ regError.password }}</small>
                                     {% endif %}
                                 </div>
@@ -147,7 +147,7 @@
                                     <span class="input-with-unit">
                                         <input type="password" name="password_again" value="" id="password_again" class="middle-size">
                                     </span>
-                                    {% if regError.password_again %}
+                                    {% if regError.password_again is defined%}
                                          <small class="error">{{ regError.password_again }}</small>
                                     {% endif %}               
                                 </div>
@@ -164,9 +164,6 @@
                     
 
                     <div class="forgotPassword  boxWrapper{% if switchpath == 'forgotpw' %} active{% endif %}" id="forgotPassword">
-                        {% if post.send_username %}
-                            {{ forgotpw|raw }}
-                        {% else %}
                         <form action="login.php" method="post">
                             <fieldset>
                                 <legend onclick="show('log');">{% trans %}Forgot password?{% endtrans %}</legend>
@@ -188,7 +185,7 @@
                                 <a class="loginBoxChange log" href="#" >{% trans "Back to login" %}</a>
                             </div>
                         </form>
-                        {% endif %}
+                      
                     </div>
 
 
