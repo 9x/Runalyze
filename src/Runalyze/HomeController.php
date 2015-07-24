@@ -3,24 +3,23 @@ namespace Runalyze;
  
 use Symfony\Component\HttpFoundation\Response;
 use Silex\Application;
-use \DB;
 use \Cache;
 
 function userStat() {
-    DB::getInstance()->stopAddingAccountID();
+    \DB::getInstance()->stopAddingAccountID();
     $stat['user'] = Cache::get('NumUser', 1);
     if ($NumUser == NULL) {
-        $stat['user'] = DB::getInstance()->query('SELECT COUNT(*) FROM '.PREFIX.'account WHERE activation_hash = ""')->fetchColumn();
+        $stat['user'] = \DB::getInstance()->query('SELECT COUNT(*) FROM '.PREFIX.'account WHERE activation_hash = ""')->fetchColumn();
         Cache::set('NumUser', $NumUser, '500', 1);
     }
 
     $km = Cache::get('NumKm', 1);
     if ($NumKm == NULL) {
-        $km= DB::getInstance()->query('SELECT SUM(distance) FROM '.PREFIX.'training')->fetchColumn();
+        $km= \DB::getInstance()->query('SELECT SUM(distance) FROM '.PREFIX.'training')->fetchColumn();
         Cache::set('NumKm', $NumKm, '500', 1);
     }
     $stat['km'] = Activity\Distance::format($km);
-    DB::getInstance()->startAddingAccountID();
+    \DB::getInstance()->startAddingAccountID();
     $stat['online'] = \SessionAccountHandler::getNumberOfUserOnline();
     return $stat;
 }
@@ -28,28 +27,40 @@ function cookeInfo() {
     setcookie('CookieInfo', 'true', time()+30*86400);
     return $_COOKIE['CookieInfo'];
 }
-function switchStart() {
-    if($_POST['new_username']) {
-        $path = 'register';
-        $RegistrationErrors = \AccountHandler::tryToRegisterNewUser();
-    } elseif($_POST['username'])
-        $path = 'login';
-    elseif($_POST['send_username']) {
-        $path = 'forgotpw';    
-        $forgotpw =   \AccountHandler::sendPasswordLinkTo($_POST['send_username']);
-    } else
-        $path = 'login';
-}
+
 class HomeController
 {
     public function loginAction(Application $app)
     {
             $Frontend = new \Frontend(true);
-                $stat = userStat();
-                $cookieinfo = cookeInfo();
-                //Cooke information
-                 $path = 'login';
-                $response =  $app['twig']->render('login.twig', array(
+            $stat = userStat();
+            $cookieinfo = cookeInfo();
+            $path = 'login';
+            $response =  $app['twig']->render('login.twig', array(
+                'RUNALYZE_VERSION' => RUNALYZE_VERSION,
+                'numUserOnline' => $stat['online'],
+                'numUser' => $stat['user'],
+                'numKm' => $stat['km'],
+                'errorType' => \SessionAccountHandler::$ErrorType,
+                'cookieInfo' => $cookieinfo,
+                'switchpath' => $path,
+                'forgotpw' => $forgotpw,
+                'USER_CAN_REGISTER' => USER_CAN_REGISTER,
+                'regError' => $RegistrationErrors,
+            ));
+            return new Response($response);
+    }
+ 
+    public function registerAction(Application $app)
+    {
+        $Frontend = new \Frontend(true);
+        $path = 'register'; 
+        $stat = userStat();
+        $cookieinfo = cookeInfo();
+        if($_POST['new_username'])
+            $RegistrationErrors = \AccountHandler::tryToRegisterNewUser();
+                
+        $response =  $app['twig']->render('login.twig', array(
                     'RUNALYZE_VERSION' => RUNALYZE_VERSION,
                     'numUserOnline' => $stat['online'],
                     'numUser' => $stat['user'],
@@ -63,10 +74,71 @@ class HomeController
                 ));
                 return new Response($response);
     }
- 
-    public function testAction()
+    
+    public function forgotPwAction(Application $app)
     {
-        return new Response("Hello");
+        $Frontend = new \Frontend(true);
+        $path = 'forgotpw';    
+        $forgotpw =   \AccountHandler::sendPasswordLinkTo($_POST['send_username']);
+        $stat = userStat();
+        $cookieinfo = cookeInfo();
+        if($_POST['send_username'])
+             $forgotpw =   \AccountHandler::sendPasswordLinkTo($_POST['send_username']);
+            
+                
+        $response =  $app['twig']->render('login.twig', array(
+                    'RUNALYZE_VERSION' => RUNALYZE_VERSION,
+                    'numUserOnline' => $stat['online'],
+                    'numUser' => $stat['user'],
+                    'numKm' => $stat['km'],
+                    'errorType' => \SessionAccountHandler::$ErrorType,
+                    'cookieInfo' => $cookieinfo,
+                    'switchpath' => $path,
+                    'forgotpw' => $forgotpw,
+                    'USER_CAN_REGISTER' => USER_CAN_REGISTER,
+                    'regError' => $RegistrationErrors,
+                ));
+                return new Response($response);
+    }
+    
+    public function activateAction(Application $app, $hash)
+    {
+        $Frontend = new \Frontend(true);
+        $ActivateAccount = \AccountHandler::tryToActivateAccount($hash);
+        
+                
+        $response =  $app['twig']->render('activateAccount.html.twig', array(
+                    'activateAccount' => $ActivateAccount,
+                ));
+                return new Response($response);
+    }
+    
+    public function deleteAction(Application $app, $hash)
+    {
+        $Frontend = new \Frontend(true);
+        if($_GET['true']) 
+            $deleteAccount = \AccountHandler::tryToDeleteAccount($hash);
+        
+                
+        $response =  $app['twig']->render('deleteAccount.html.twig', array(
+                    'deleteAccount' => $deleteAccount,
+                    'hash' => $hash,
+                ));
+                return new Response($response);
+    }
+    
+    public function changePasswordAction(Application $app, $hash)
+    {
+        $Frontend = new \Frontend(true);
+        $errors = \AccountHandler::tryToSetNewPassword();
+        $user   = \AccountHandler::getUsernameForChangePasswordHash();
+                
+        $response =  $app['twig']->render('setNewPassword.html.twig', array(
+                    'errors' => $errors,
+                    'hash' => $hash,
+                    'user' => $user,
+                ));
+                return new Response($response);
     }
     
     public function appAction()

@@ -102,7 +102,7 @@
                         {% if regError == true %}
                             {% trans %}Thanks for your registration. You should receive an email within the next minutes with further instructions for activating your account.{% endtrans %}
                         {% else %}
-                        <form action="login.php" method="post">
+                        <form action="register" method="post">
                             <fieldset>
                                 <legend onclick="show('log');">{% trans %}Create a new account{% endtrans %}</legend>
                                 <div class="w100 block">
@@ -164,7 +164,7 @@
                     
 
                     <div class="forgotPassword  boxWrapper{% if switchpath == 'forgotpw' %} active{% endif %}" id="forgotPassword">
-                        <form action="login.php" method="post">
+                        <form action="forgotpw" method="post">
                             <fieldset>
                                 <legend onclick="show('log');">{% trans %}Forgot password?{% endtrans %}</legend>
                                 <p class="info">

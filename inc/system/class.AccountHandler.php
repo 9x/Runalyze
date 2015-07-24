@@ -326,7 +326,7 @@ class AccountHandler {
 	 * @return string
 	 */
 	static private function getChangePasswordLink($hash) {
-		return System::getFullDomain().'login.php?chpw='.$hash;
+		return System::getFullDomain().'changepassword/'.$hash;
 	}
 
 	/**
@@ -335,7 +335,7 @@ class AccountHandler {
 	 * @return string
 	 */
 	static private function getActivationLink($hash) {
-		return System::getFullDomain().'login.php?activate='.$hash;
+		return System::getFullDomain().'activate/'.$hash;
 	}
 
         /**
@@ -344,7 +344,7 @@ class AccountHandler {
 	 * @return string
 	 */
 	static private function getDeletionLink($hash) {
-		return System::getFullDomain().'login.php?delete='.$hash;
+		return System::getFullDomain().'delete/'.$hash;
 	}
 
 	/**
@@ -371,7 +371,7 @@ class AccountHandler {
 	 * Try to set new password from post-values
 	 * @return mixed
 	 */
-	static public function tryToSetNewPassword() {
+	static public function tryToSetNewPassword($hash) {
 		if (!isset($_POST['chpw_hash']) || !isset($_POST['new_pw']) || !isset($_POST['new_pw_again']) || !isset($_POST['chpw_username']))
 			return;
 
@@ -400,9 +400,9 @@ class AccountHandler {
 	 * Try to activate the account
 	 * @return boolean
 	 */
-	static public function tryToActivateAccount() {
+	static public function tryToActivateAccount($hash) {
 		DB::getInstance()->stopAddingAccountID();
-		$Account = DB::getInstance()->query('SELECT id FROM `'.PREFIX.'account` WHERE `activation_hash`='.DB::getInstance()->escape($_GET['activate']).' LIMIT 1')->fetch();
+		$Account = DB::getInstance()->query('SELECT id FROM `'.PREFIX.'account` WHERE `activation_hash`='.DB::getInstance()->escape($hash).' LIMIT 1')->fetch();
 		DB::getInstance()->startAddingAccountID();
 
 		if ($Account) {
@@ -418,9 +418,9 @@ class AccountHandler {
 	 * Try to delete the account
 	 * @return boolean
 	 */
-	static public function tryToDeleteAccount() {
+	static public function tryToDeleteAccount($hash) {
 		DB::getInstance()->stopAddingAccountID();
-		$Account = DB::getInstance()->exec('DELETE FROM `'.PREFIX.'account` WHERE `deletion_hash`='.DB::getInstance()->escape($_GET['delete']).' LIMIT 1');
+		$Account = DB::getInstance()->exec('DELETE FROM `'.PREFIX.'account` WHERE `deletion_hash`='.DB::getInstance()->escape($hash).' LIMIT 1');
 		DB::getInstance()->startAddingAccountID();
 
 		if ($Account) {

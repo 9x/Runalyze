@@ -73,12 +73,12 @@ class SessionAccountHandler {
 
 		if (!$this->tryToUseSession()) {
 			if ($this->tryToLoginFromPost()) {
-				header('Location: '.System::getFullDomain().'/');
+				header('Location: '.System::getFullDomain().'');
 				exit;
 			} elseif ($this->tryToLoginFromCookie()) {
-				header('Location: '.System::getFullDomain().'/');
+				header('Location: '.System::getFullDomain().'');
 				exit;
-			} elseif (self::$USER_MUST_LOGIN && !$this->isOnLoginPage() && !$this->isOnAdminPage()) {
+			} elseif (self::$USER_MUST_LOGIN && !$this->isOnPage('login') && !$this->isOnPage('register') && !$this->isOnPage('forgotpw') && !$this->isOnPage('admin.php')) {
 				header('Location: '.System::getFullDomain().'login');
 				exit;
 			}
@@ -94,16 +94,8 @@ class SessionAccountHandler {
 	 * Is user on login-page?
 	 * @return boolean
 	 */
-	private function isOnLoginPage() {
-		return substr(Request::Basename(), 0, 9) == 'login';
-	}
-
-	/**
-	 * Is user on login-page?
-	 * @return boolean
-	 */
-	private function isOnAdminPage() {
-		return substr(Request::Basename(), 0, 9) == 'admin.php';
+	private function isOnPage($page) {
+		return substr(Request::Basename(), 0, 9) == $page;
 	}
 
 	/**

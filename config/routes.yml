@@ -11,10 +11,30 @@ login:
     path: /login
     defaults: { _controller: 'Runalyze\HomeController::loginAction' }
     
+register:
+    path: /register
+    defaults: { _controller: 'Runalyze\HomeController::registerAction' }
+    
+forgotpw:
+    path: /forgotpw
+    defaults: { _controller: 'Runalyze\HomeController::forgotPwAction' }
+   
+useractivate:
+    path: /activate/{hash}
+    defaults: { _controller: 'Runalyze\HomeController::activateAction' }
+    
+userdelete:
+    path: /delete/{hash}
+    defaults: { _controller: 'Runalyze\HomeController::deleteAction' }
+    
+userforgotpw:
+    path: /changepassword/{hash}
+    defaults: { _controller: 'Runalyze\HomeController::changePasswordAction' }
+    
 settings:
     path: /settings/{key}
     defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
     
 site:
-    path: /site/{sitename}
+    path: /{sitename}
     defaults: { _controller: 'Runalyze\HomeController::SiteAction' }
