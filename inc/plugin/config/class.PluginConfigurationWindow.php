@@ -88,7 +88,7 @@ class PluginConfigurationWindow {
 	 * Display form
 	 */
 	protected function displayForm() {
-		$Formular = new Formular(Plugin::$CONFIG_URL.'?id='.$this->Plugin->id(), 'post');
+		$Formular = new Formular(Plugin::$CONFIG_URL.$this->Plugin->id(), 'post');
 		$Formular->addCSSclass('ajax');
 		$Formular->addCSSclass('no-automatic-reload');
 		$Formular->addHiddenValue('edit', 'true');

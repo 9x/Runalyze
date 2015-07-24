@@ -329,7 +329,7 @@ abstract class PluginStat extends Plugin {
 	 * @return string
 	 */
 	public function getLink() {
-		return '<a rel="statistics" href="'.self::$DISPLAY_URL.'?id='.$this->id().'">'.$this->name().'</a>';
+		return '<a rel="statistics" href="'.self::$DISPLAY_URL.$this->id().'">'.$this->name().'</a>';
 	}
 
 	/**
@@ -349,7 +349,7 @@ abstract class PluginStat extends Plugin {
 			$year = $this->year;
 		}
 
-		return Ajax::link($name, 'statistics-inner', self::$DISPLAY_URL.'?id='.$this->id().'&sport='.$sport.'&jahr='.$year.'&dat='.$dat);
+		return Ajax::link($name, 'statistics-inner', self::$DISPLAY_URL.$this->id().'&sport='.$sport.'&jahr='.$year.'&dat='.$dat);
 	}
 
 	/**

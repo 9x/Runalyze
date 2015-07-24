@@ -30,10 +30,30 @@ userdelete:
 userforgotpw:
     path: /changepassword/{hash}
     defaults: { _controller: 'Runalyze\HomeController::changePasswordAction' }
-    
+ 
 settings:
+    path: /settings
+    defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
+    
+settingswithkey:
     path: /settings/{key}
     defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
+     
+activityview:
+    path: /activity/{id}
+    defaults: { _controller: 'Runalyze\ActivityController::viewAction' }    
+     
+plugin:
+    path: /plugin/{id}
+    defaults: { _controller: 'Runalyze\PluginController::DefaultAction' }
+    
+pluginconfig:
+    path: /plugin/config/{id}
+    defaults: { _controller: 'Runalyze\PluginController::ConfigAction' }
+    
+databrowser:
+    path: /databrowser
+    defaults: { _controller: 'Runalyze\DatabrowserController::DefaultAction' }
     
 site:
     path: /{sitename}

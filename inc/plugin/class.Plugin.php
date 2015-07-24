@@ -40,13 +40,13 @@ abstract class Plugin {
 	 * Url for displaying the config-window
 	 * @var string
 	 */
-	public static $CONFIG_URL = 'call/call.Plugin.config.php';
+	public static $CONFIG_URL = 'plugin/config/';
 
 	/**
 	 * Url for displaying the plugin
 	 * @var string
 	 */
-	public static $DISPLAY_URL = 'call/call.Plugin.display.php';
+	public static $DISPLAY_URL = 'plugin/';
 
 	/**
 	 * CSS-Flag for plugins: Don't reload if config has changed
@@ -417,7 +417,7 @@ abstract class Plugin {
 			$name = Icon::$CONF;
 		}
 
-		return Ajax::window('<a href="'.self::$CONFIG_URL.'?id='.$this->id().$add_param.'">'.$name.'</a>','small');
+		return Ajax::window('<a href="'.self::$CONFIG_URL.$this->id().$add_param.'">'.$name.'</a>','small');
 	}
 
 	/**

@@ -53,7 +53,7 @@ class TrainingView {
 		}
 
 		if (!Request::isOnSharedPage()) {
-			$this->ToolbarLinks[] = Ajax::window('<a href="'.ExporterWindow::$URL.'?id='.$this->Context->activity()->id().'">'.Icon::$DOWNLOAD.' '.__('Export').'</a> ','small');
+			$this->ToolbarLinks[] = Ajax::window('<a href="'.ExporterWindow::$URL.$this->Context->activity()->id().'">'.Icon::$DOWNLOAD.' '.__('Export').'</a> ','small');
 			$this->ToolbarLinks[] = Ajax::window('<a href="'.$Linker->editUrl().'">'.Icon::$EDIT.' '.__('Edit').'</a> ','small');
 		}
 

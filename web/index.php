@@ -68,12 +68,7 @@ $View = new TrainingView($Context);
 $View->display();
 return '';
 });
-$app->match('/databrowser', function(Request $request) use($app) {
-    $Frontend = new Frontend();
-$DataBrowser = new DataBrowser();
-$DataBrowser->display();
-return '';
-});
+
 
 $app->match('/plugin', function(Request $request) use($app) {
 $Frontend = new Frontend();

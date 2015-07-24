@@ -128,7 +128,7 @@ abstract class PluginTool extends Plugin {
 	 * @return string
 	 */
 	static public function getLinkFor($id, $name, $data = '') {
-		return Ajax::link($name, self::$TOOLS_DIV_ID, parent::$DISPLAY_URL.'?id='.$id, $data);
+		return Ajax::link($name, self::$TOOLS_DIV_ID, parent::$DISPLAY_URL.''.$id, $data);
 	}
 
 	/**
@@ -163,7 +163,7 @@ abstract class PluginTool extends Plugin {
 			$name = $this->name();
 		}
 
-		return Ajax::window('<a href="'.parent::$DISPLAY_URL.'?id='.$this->id().($wrapAsContainer ? '&wrap=true' : '').'">'.$name.'</a>', 'big');
+		return Ajax::window('<a href="'.parent::$DISPLAY_URL.''.$this->id().($wrapAsContainer ? '&wrap=true' : '').'">'.$name.'</a>', 'big');
 	}
 
 	/**

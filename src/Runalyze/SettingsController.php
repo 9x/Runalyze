@@ -6,7 +6,7 @@ use Silex\Application;
 
 class SettingsController
 {
-    public function DefaultAction(Application $app, $key)
+    public function DefaultAction(Application $app, $key='')
     {
         //echo "test";
         $Frontend = new \Frontend();

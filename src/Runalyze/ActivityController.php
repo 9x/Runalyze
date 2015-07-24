@@ -11,8 +11,14 @@ class ActivityController
         return new Response("AppController::homeAction");
     }
  
-    public function testAction()
+    public function viewAction($id)
     {
-        return new Response("Hello");
+        echo "test";
+        $Frontend = new \Frontend();
+
+        $Context = new \Context($request->get($id), \SessionAccountHandler::getId());
+        $View = new \TrainingView($Context);
+        $View->display();
+        return '';
     }
 }
