@@ -13,7 +13,7 @@ abstract class PluginTool extends Plugin {
 	 * Url for displaying the plugin
 	 * @var string
 	 */
-	public static $DISPLAY_URL = 'call/call.PluginTool.display.php';
+	public static $DISPLAY_URL = 'tools';
 
 	/**
 	 * Surrounding div for every tool

@@ -46,5 +46,16 @@ class PluginController
         }
         return '';
     }
+    
+    public function toolsAction() {
+        $Frontend = new \Frontend();
+
+        if (!isset($_GET['list'])) {
+                \PluginTool::displayToolsHeader();
+        }
+
+        \PluginTool::displayToolsContent();
+        return '';
+    }
  
 }

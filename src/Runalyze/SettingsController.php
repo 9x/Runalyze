@@ -6,9 +6,8 @@ use Silex\Application;
 
 class SettingsController
 {
-    public function DefaultAction(Application $app, $key='')
+    public function DefaultAction($key='config_tab_general')
     {
-        //echo "test";
         $Frontend = new \Frontend();
 
         $ConfigTabs = new \ConfigTabs();

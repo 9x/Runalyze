@@ -42,7 +42,7 @@ abstract class PlotSumData extends Plot {
 	 * URL to window
 	 * @var string
 	 */
-	static public $URL = 'call/window.plotSumData.php';
+	static public $URL = 'plot/sum/';
 
 	/**
 	 * URL to shared window
@@ -275,7 +275,7 @@ abstract class PlotSumData extends Plot {
 		if (FrontendShared::$IS_SHOWN)
 			return Ajax::window('<li'.($current ? ' class="active"' : '').'><a href="'.DataBrowserShared::getBaseUrl().'?view='.(Request::param('type')=='week'?'weekkm':'monthkm').'&type='.Request::param('type').'&y='.$year.'&sportid='.$sportid.'&group='.$group.'&analysis='.$analysis.'">'.$text.'</a></li>');
 		else
-			return Ajax::window('<li'.($current ? ' class="active"' : '').'><a href="'.self::$URL.'?type='.Request::param('type').'&y='.$year.'&sportid='.$sportid.'&group='.$group.'&analysis='.$analysis.'">'.$text.'</a></li>');
+			return Ajax::window('<li'.($current ? ' class="active"' : '').'><a href="'.self::$URL.Request::param('type').'?y='.$year.'&sportid='.$sportid.'&group='.$group.'&analysis='.$analysis.'">'.$text.'</a></li>');
 	}
 
 	/**

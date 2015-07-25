@@ -10,79 +10,8 @@ if (!file_exists('config.php')) {
 	exit();
 }
 
-require 'inc/class.Frontend.php';
-$Frontend = new Frontend(true);
-
 if (isset($_GET['delete'])) 
     SessionAccountHandler::logout();
-
-if (isset($_GET['out']))
-	SessionAccountHandler::logout();
-
-if (SessionAccountHandler::isLoggedIn()) {
-	header('Location: index.php');
-	exit;
-}
-
-DB::getInstance()->stopAddingAccountID();
-
-$NumUser = Cache::get('NumUser', 1);
-if ($NumUser == NULL) {
-    $NumUser = DB::getInstance()->query('SELECT COUNT(*) FROM '.PREFIX.'account WHERE activation_hash = ""')->fetchColumn();
-    Cache::set('NumUser', $NumUser, '500', 1);
-}
-
-$NumKm = Cache::get('NumKm', 1);
-if ($NumKm == NULL) {
-    $NumKm = DB::getInstance()->query('SELECT SUM(distance) FROM '.PREFIX.'training')->fetchColumn();
-    Cache::set('NumKm', $NumKm, '500', 1);
-}
-DB::getInstance()->startAddingAccountID();
-
-$NumUserOn = SessionAccountHandler::getNumberOfUserOnline();
-setcookie('CookieInfo', 'true', time()+30*86400);
-$cookieinfo = $_COOKIE['CookieInfo'];
-
-if($_POST['new_username']) {
-    $path = 'register';
-    $RegistrationErrors = AccountHandler::tryToRegisterNewUser();
-
-} elseif($_POST['username'])
-    $path = 'login';
-elseif($_POST['send_username']) {
-    $path = 'forgotpw';    
-    $forgotpw =  AccountHandler::sendPasswordLinkTo($_POST['send_username']);
-} else
-    $path = 'login';
-
-echo $info;
-Twig_Autoloader::register();
-$Twig = new Twig_Environment(new Twig_Loader_Filesystem(FRONTEND_PATH.'../view'));
-$Twig->addExtension(new Twig_Extensions_Extension_I18n());
-$Twig->registerUndefinedFunctionCallback(function ($name) {
-	if (function_exists($name)) {
-		return new Twig_SimpleFunction($name, function() use($name) {
-			return call_user_func_array($name, func_get_args());
-		});
-	}
-
-	return false;
-});
-
-echo $Twig->loadTemplate('login.twig')->render(array(
-	'RUNALYZE_VERSION' => RUNALYZE_VERSION,
-	'numUserOnline' => $NumUserOn,
-	'numUser' => $NumUser,
-	'numKm' => Runalyze\Activity\Distance::format($NumKm),
-        'errorType' => SessionAccountHandler::$ErrorType,
-        'cookieInfo' => $cookieinfo,
-        'switchpath' => $path,
-        'post'  => $_POST,
-        'forgotpw' => $forgotpw,
-        'USER_CAN_REGISTER' => USER_CAN_REGISTER,
-        'regError' => $RegistrationErrors,
-        ));
-
 /*$title = 'Runalyze v'.RUNALYZE_VERSION.' - '.__('Please login');
 $tpl   = 'tpl.loginWindow.php';
 

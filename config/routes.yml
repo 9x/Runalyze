@@ -11,6 +11,14 @@ login:
     path: /login
     defaults: { _controller: 'Runalyze\HomeController::loginAction' }
     
+logout:
+    path: /logout
+    defaults: { _controller: 'Runalyze\HomeController::logoutAction' }
+    
+help:
+    path: /help
+    defaults: { _controller: 'Runalyze\HomeController::helpAction' }
+    
 register:
     path: /register
     defaults: { _controller: 'Runalyze\HomeController::registerAction' }
@@ -31,6 +39,10 @@ userforgotpw:
     path: /changepassword/{hash}
     defaults: { _controller: 'Runalyze\HomeController::changePasswordAction' }
  
+tools:
+    path: /tools
+    defaults: { _controller: 'Runalyze\PluginController::toolsAction' }
+ 
 settings:
     path: /settings
     defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
@@ -39,10 +51,32 @@ settingswithkey:
     path: /settings/{key}
     defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
      
+activity_edit:
+    path: /activity/edit
+    defaults: { _controller: 'Runalyze\ActivityController::editAction' }
+    
+activity_search:
+    path: /activity/search
+    defaults: { _controller: 'Runalyze\ActivityController::searchAction' }
+    
+activity_create:
+    path: /activity/create
+    defaults: { _controller: 'Runalyze\ActivityController::createAction' }    
+
 activityview:
     path: /activity/{id}
-    defaults: { _controller: 'Runalyze\ActivityController::viewAction' }    
-     
+    defaults: { _controller: 'Runalyze\ActivityController::viewAction' } 
+    
+plot_sum:
+    path: /plot/sum
+    defaults: { _controller: 'Runalyze\PlotController::sumAction' }  
+    
+plot_sum_type:
+    path: /plot/sum/{type}
+    defaults: { _controller: 'Runalyze\PlotController::sumAction' }   
+    
+ 
+    
 plugin:
     path: /plugin/{id}
     defaults: { _controller: 'Runalyze\PluginController::DefaultAction' }

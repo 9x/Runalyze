@@ -27,7 +27,7 @@ class Frontend {
 	 * URL for help-window
 	 * @var string
 	 */
-	public static $HELP_URL = 'inc/tpl/tpl.help.php';
+	public static $HELP_URL = 'help';
 
 	/**
 	 * Boolean flag: log GET- and POST-data

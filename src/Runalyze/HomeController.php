@@ -50,6 +50,13 @@ class HomeController
             ));
             return new Response($response);
     }
+    
+    public function logoutAction() {
+        $Frontend = new \Frontend(true);
+       \SessionAccountHandler::logout(); 
+       header('Location: '.\System::getFullDomain().'login');
+    }
+    
  
     public function registerAction(Application $app)
     {
@@ -217,8 +224,14 @@ class HomeController
         return '';
             }
             
+    public function helpAction(Application $app)
+    {
+        $Frontend = new \Frontend();
+        return new Response($app['twig']->render('help.html.twig'));
+    }    
+    
     public function SiteAction(Application $app, $sitename)
     {
-        return new Response($app['twig']->render($sitename.'.twig'));
+        return new Response($app['twig']->render('sites/'.$sitename.'.twig'));
     }
 }

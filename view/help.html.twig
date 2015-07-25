@@ -1,24 +1,20 @@
-<?php
-require_once '../class.Frontend.php';
-
-$Frontend = new Frontend();
-?>
 <div class="panel-heading">
 	<h1>Runalyze</h1>
 </div>
 <div class="panel-content">
 	<p class="text">
-		<?php _e('Runalyze is completely configurable and more detailed than any other tool for analyzing your activities.'); ?>
+		{% trans %}Runalyze is completely configurable and more detailed than any other tool for analyzing your activities.{% endtrans %}
 	</p>
 
 	<p class="text">
-		<?php printf( __('Please look at our official website %s to get an overview of our features.'), '<a href="http://blog.runalyze.com/">blog.runalyze.com</a>'); ?><br>
-		<?php printf( __('If you want to stay up to date on changes and receive tips from time to time, visit our blog at %s.'), '<a href="http://blog.runalyze.com/blog/">blog.runalyze.com/blog/</a>'); ?>
+            {% set website = '<a href="http://blog.runalyze.com/">blog.runalyze.com</a>' %}
+		{% trans %}Please look at our official website {{website}} to get an overview of our features.{% endtrans %} <br>
+		{% trans %}If you want to stay up to date on changes and receive tips from time to time, visit our blog at  {% endtrans %} <a href="http://blog.runalyze.com/blog/">blog.runalyze.com/blog/</a>
 	</p>
 
 	<p class="text">
-		<?php _e('Runalyze is an open-source project. We are working on it as much as we can in our free time.'); ?><br>
-		<?php _e('Official developers:'); ?>
+		{% trans %}Runalyze is an open-source project. We are working on it as much as we can in our free time.{% endtrans %} <br>
+		{% trans %}Official developers:{% endtrans %} 
 		<a href="http://www.laufhannes.de/" title="Laufblog: Laufhannes">Hannes Christiansen</a>,
 		<a href="http://mipapo.de/" title="Mipapo: Michael Pohl">Michael Pohl</a>
 	</p>
@@ -26,28 +22,28 @@ $Frontend = new Frontend();
 
 
 <div class="panel-heading panel-sub-heading">
-	<h1><?php _e('Configuration'); ?></h1>
+	<h1>{% trans %}Configuration{% endtrans %} </h1>
 </div>
 <div class="panel-content">
 	<p class="text">
-		<?php _e('The main advantage of Runalyze is the ability to adapt everything to your personal needs and wishes.'); ?>
-		<?php _e('Have a look at the configuration window to see what we\'re talking about.'); ?>
-		<?php _e('You can define your own sports or activity types and choose your own way of presentation and configure some parameters of our experimental calculations.'); ?>
+		{% trans %}The main advantage of Runalyze is the ability to adapt everything to your personal needs and wishes.{% endtrans %}
+		{% trans %}Have a look at the configuration window to see what we're talking about.{% endtrans %}
+		{% trans %}You can define your own sports or activity types and choose your own way of presentation and configure some parameters of our experimental calculations.{% endtrans %}
 	</p>
 </div>
 
 
 <div class="panel-heading panel-sub-heading">
-	<h1><?php _e('Support'); ?></h1>
+	<h1>{% trans %}Support{% endtrans %} </h1>
 </div>
 <div class="panel-content">
 	<p class="text">
-		<?php _e('Please let us know if you have wishes or have encountered bugs.'); ?>
-		<?php _e('We give our best to make Runalyze as good as possible for you. - Therefore we would be interested in your suggestions for improvement.'); ?>
+		{% trans %}Please let us know if you have wishes or have encountered bugs.{% endtrans %}
+		{% trans %}We give our best to make Runalyze as good as possible for you. - Therefore we would be interested in your suggestions for improvement.{% endtrans %}
 	</p>
 
 	<p class="text">
-		<?php _e('You can contact us via email:'); ?> <a href="mailto:support@runalyze.de" title="Support">support@runalyze.de</a>.
+		{% trans %}You can contact us via email:{% endtrans %} <a href="mailto:support@runalyze.de" title="Support">support@runalyze.de</a>.
 	</p>
 
 	<ul class="blocklist blocklist-inline clearfix">
@@ -60,17 +56,17 @@ $Frontend = new Frontend();
 </div>
 
 <div class="panel-heading panel-sub-heading">
-	<h1><?php printf( __('Browser Support')); ?></h1>
+	<h1>{% trans %}Browser Support{% endtrans %}</h1>
 </div>
 <div class="panel-content">
-	<?php printf( __('Runalyze is a modern application and therefore we want to use the most modern web techniques. We will not try to support any outdated browser versions.')); ?>
+	{% trans %}Runalyze is a modern application and therefore we want to use the most modern web techniques. We will not try to support any outdated browser versions.{% endtrans %}
 	<ul>
-		<li><?php printf( __('e.g. jQuery 2.x does not support IE8 (or less)')); ?></li>
+		<li>{% trans %}e.g. jQuery 2.x does not support IE8 (or less){% endtrans %}</li>
 	</ul>
 </div>
 
 <div class="panel-heading panel-sub-heading">
-	<h1><?php printf( __('Credits')); ?></h1>
+	<h1>{% trans %}Credits{% endtrans %}></h1>
 </div>
 <div class="panel-content">
 	<ul>
