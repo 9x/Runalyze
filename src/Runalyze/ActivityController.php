@@ -6,6 +6,11 @@ use Silex\Application;
 use Runalyze\Model\Activity;
 use Runalyze\View\Activity\Linker;
 use Runalyze\View\Activity\Dataview;
+use Runalyze\View\Activity\Context;
+use Runalyze\Model\Route;
+use Runalyze\Calculation\Route\Calculator;
+use Runalyze\View\Window\Laps\Window;
+
 
 class ActivityController
 {
@@ -14,16 +19,22 @@ class ActivityController
         return new Response("AppController::homeAction");
     }
  
+    /*
+     * view activity
+     */
     public function viewAction($id)
     {
         $Frontend = new \Frontend();
 
-        $Context = new Context($request->get($id), \SessionAccountHandler::getId());
+        $Context = new Context($id, \SessionAccountHandler::getId());
         $View = new \TrainingView($Context);
         $View->display();
         return '';
     }
     
+    /*
+     * create activity
+     */
     public function createAction()
     {
         $Frontend = new \Frontend(isset($_GET['json']));
@@ -53,13 +64,16 @@ class ActivityController
         return '';
     }
 
-    public function editAction()
+    /*
+     * edit activity
+     */
+    public function editAction($id)
     {
-        $Frontend = new Frontend();
+        $Frontend = new \Frontend();
 
         if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
                 $Deleter = new \Activity\Deleter(DB::getInstance(), Runalyze\Context::Factory()->activity($_GET['delete']));
-                $Deleter->setAccountID(SessionAccountHandler::getId());
+                $Deleter->setAccountID(\SessionAccountHandler::getId());
                 $Deleter->delete();
 
                 echo '<div class="panel-content"><p id="submit-info" class="error">'.__('The activity has been removed').'</p></div>';
@@ -67,11 +81,11 @@ class ActivityController
                 exit();
         }
 
-        $Training = new \TrainingObject(Request::sendId());
-        $Activity = new \Activity\Object($Training->getArray());
+        $Training = new \TrainingObject($id);
+        $Activity = new Activity\Object($Training->getArray());
 
-        $Linker = new \Linker($Activity);
-        $Dataview = new \Dataview($Activity);
+        $Linker = new Linker($Activity);
+        $Dataview = new Dataview($Activity);
 
         echo $Linker->editNavigation();
 
@@ -86,8 +100,12 @@ class ActivityController
         $Formular->display();
 
         echo '</div>';
+        return '';
     }
     
+    /*
+     * search activities
+     */
     public function searchAction() {
         $Frontend = new \Frontend();
 
@@ -111,6 +129,67 @@ class ActivityController
 
         $Results = new \SearchResults($showResults);
         $Results->display();
+        return '';
+    }
+    
+    /*
+     * show elevationInfo
+     */
+    public function elevationInfoAction($id) {
+        $Frontend = new \Frontend();
+
+        $ElevationInfo = new \ElevationInfo(new Context($id, \SessionAccountHandler::getId()));
+        $ElevationInfo->display();
+        return '';
+    }
+    
+    public function ElevationCorrectionAction($id) {
+        $Frontend = new \Frontend();
+
+        $Factory = \Context::Factory();
+        $Activity = $Factory->activity($id);
+        $ActivityOld = clone $Activity;
+        $Route = $Factory->route($Activity->get(Activity\Object::ROUTEID));
+        $RouteOld = clone $Route;
+
+        $Calculator = new \Calculator($Route);
+
+        if ($Calculator->tryToCorrectElevation()) {
+                $Calculator->calculateElevation();
+                $Activity->set(Activity\Object::ELEVATION, $Route->elevation());
+
+                $UpdaterRoute = new \Route\Updater(\DB::getInstance(), $Route, $RouteOld);
+                $UpdaterRoute->setAccountID(\SessionAccountHandler::getId());
+                $UpdaterRoute->update();
+
+                $UpdaterActivity = new \Activity\Updater(DB::getInstance(), $Activity, $ActivityOld);
+                $UpdaterActivity->setAccountID(\SessionAccountHandler::getId());
+                $UpdaterActivity->update();
+
+                echo __('Elevation data has been corrected.');
+
+                \Ajax::setReloadFlag( \Ajax::$RELOAD_DATABROWSER_AND_TRAINING );
+                echo \Ajax::getReloadCommand();
+                echo \Ajax::wrapJS('if($("#ajax").is(":visible") && $("#training").length)Runalyze.Overlay.load(\''.\Linker::EDITOR_URL.$id.'\')');
+        } else {
+                echo __('Elevation data could not be retrieved.');
+        }
+        return '';
+    }
+    
+    public function roundsAction($id) {
+        $Frontend = new \Frontend();
+
+        $Window = new Window(new Context($id, \SessionAccountHandler::getId()));
+        $Window->display();
+        return '';
+    }
+    
+    public function vdotAction($id) {
+        $Frontend = new \Frontend();
+
+        $VDOTinfo = new \VDOTinfo(new Context($id, \SessionAccountHandler::getId()));
+        $VDOTinfo->display();
         return '';
     }
 }

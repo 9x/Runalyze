@@ -86,4 +86,64 @@ class PluginController
         $Frontend = new \Frontend();
         $Frontend->displayPanels();
     }
+    
+    public function uninstallAction($key) {
+        $Pluginkey = $key;
+
+        $Frontend = new \Frontend();
+        $Installer = new \PluginInstaller($Pluginkey);
+
+        echo '<h1>'.__('Uninstall').' '.$Pluginkey.'</h1>';
+
+        if ($Installer->uninstall()) {
+                echo \HTML::okay( __('The plugin has been uninstalled.') );
+
+                \PluginFactory::clearCache();
+                \Ajax::setReloadFlag(Ajax::$RELOAD_ALL);
+                echo \Ajax::getReloadCommand();
+        } else {
+                echo \HTML::error( __('There was a problem, the plugin could not be uninstalled.') );
+        }
+
+        echo '<ul class="blocklist">';
+        echo '<li>';
+        echo \Ajax::window('<a href="'.\ConfigTabPlugins::getExternalUrl().'">'.\Icon::$TABLE.' '.__('back to list').'</a>');
+        echo '</li>';
+        echo '</ul>';
+        return '';
+    }
+    
+    public function installAction($key) {
+        $Pluginkey = $key;
+
+        $Frontend = new \Frontend();
+        $Installer = new \PluginInstaller($Pluginkey);
+
+        echo '<h1>'.__('Install').' '.$Pluginkey.'</h1>';
+
+        if ($Installer->install()) {
+                $Factory = new \PluginFactory();
+                $Plugin = $Factory->newInstance($Pluginkey);
+
+                echo HTML::okay( __('The plugin has been successfully installed.') );
+
+                echo '<ul class="blocklist">';
+                echo '<li>';
+                echo $Plugin->getConfigLink(\Icon::$CONF.' '.__('Configuration'));
+                echo '</li>';
+                echo '</ul>';
+
+                \Ajax::setReloadFlag(Ajax::$RELOAD_ALL);
+                echo \Ajax::getReloadCommand();
+        } else {
+                echo \HTML::error( __('There was a problem, the plugin could not be installed.') );
+        }
+
+        echo '<ul class="blocklist">';
+        echo '<li>';
+        echo Ajax::window('<a href="'.\ConfigTabPlugins::getExternalUrl().'">'.\Icon::$TABLE.' '.__('back to list').'</a>');
+        echo '</li>';
+        echo '</ul>';
+        return '';
+    }
 }

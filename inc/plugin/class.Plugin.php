@@ -34,7 +34,7 @@ abstract class Plugin {
 	 * Url for displaying the install-window
 	 * @var string
 	 */
-	public static $INSTALL_URL = 'call/call.Plugin.install.php';
+	public static $INSTALL_URL = 'plugin/install/';
 
 	/**
 	 * Url for displaying the config-window

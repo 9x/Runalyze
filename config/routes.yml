@@ -1,5 +1,6 @@
 # config/routes.yml
 
+# Default
 app:
     path: /
     defaults: { _controller: 'Runalyze\HomeController::appAction' }
@@ -26,7 +27,8 @@ register:
 forgotpw:
     path: /forgotpw
     defaults: { _controller: 'Runalyze\HomeController::forgotPwAction' }
-   
+
+# Account activation, Deletion, Forgot password
 useractivate:
     path: /activate/{hash}
     defaults: { _controller: 'Runalyze\HomeController::activateAction' }
@@ -39,10 +41,7 @@ userforgotpw:
     path: /changepassword/{hash}
     defaults: { _controller: 'Runalyze\HomeController::changePasswordAction' }
  
-tools:
-    path: /tools
-    defaults: { _controller: 'Runalyze\PluginController::toolsAction' }
- 
+# Settings 
 settings:
     path: /settings
     defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
@@ -51,8 +50,9 @@ settingswithkey:
     path: /settings/{key}
     defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
      
+# Activity
 activity_edit:
-    path: /activity/edit
+    path: /activity/edit/{id}
     defaults: { _controller: 'Runalyze\ActivityController::editAction' }
     
 activity_search:
@@ -62,10 +62,31 @@ activity_search:
 activity_create:
     path: /activity/create
     defaults: { _controller: 'Runalyze\ActivityController::createAction' }    
+    
+activity_elevation_info:
+    path: /activity/elevationinfo/{id}
+    defaults: { _controller: 'Runalyze\ActivityController::elevationInfoAction' }   
+    
+activity_rounds:
+    path: /activity/rounds/{id}
+    defaults: { _controller: 'Runalyze\ActivityController::roundsAction' }   
+    
+activity_vdot:
+    path: /activity/vdot/{id}
+    defaults: { _controller: 'Runalyze\ActivityController::vdotAction' }   
+    
+activity_elevationCorrection:
+    path: /activity/elevationCorrection/{id}
+    defaults: { _controller: 'Runalyze\ActivityController::ElevationCorrectionAction' }    
 
 activityview:
     path: /activity/{id}
     defaults: { _controller: 'Runalyze\ActivityController::viewAction' } 
+    
+#Plots
+plot_save:
+    path: /plot/save
+    defaults: { _controller: 'Runalyze\PlotController::saveAction' }  
     
 plot_sum:
     path: /plot/sum
@@ -75,7 +96,8 @@ plot_sum_type:
     path: /plot/sum/{type}
     defaults: { _controller: 'Runalyze\PlotController::sumAction' }   
     
- 
+
+#Plugin, Panels, TOols
 panel_move:
     path: /panel/move/{id}
     defaults: { _controller: 'Runalyze\PluginController::PanelMoveAction' }
@@ -86,10 +108,21 @@ panel_display:
     path: /plugin/display
     defaults: { _controller: 'Runalyze\PluginController::PanelDisplayAction' }
 
-      
+tools:
+    path: /tools
+    defaults: { _controller: 'Runalyze\PluginController::toolsAction' }
+    
 plugin:
     path: /plugin/{id}
     defaults: { _controller: 'Runalyze\PluginController::DefaultAction' }
+    
+plugin_install:
+    path: /plugin/install/{key}
+    defaults: { _controller: 'Runalyze\PluginController::installAction' }
+    
+plugin_uninstall:
+    path: /plugin/uninstall/{key}
+    defaults: { _controller: 'Runalyze\PluginController::uninstallAction' }
     
 pluginconfig:
     path: /plugin/config/{id}

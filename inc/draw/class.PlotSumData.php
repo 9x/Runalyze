@@ -42,7 +42,7 @@ abstract class PlotSumData extends Plot {
 	 * URL to window
 	 * @var string
 	 */
-	static public $URL = 'plot/sum/';
+	static public $URL = 'plot/sum';
 
 	/**
 	 * URL to shared window

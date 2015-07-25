@@ -18,12 +18,12 @@ class PluginInstaller {
 	/**
 	 * Install URL
 	 */
-	const INSTALL_URL = 'call/call.Plugin.install.php';
+	const INSTALL_URL = 'plugin/install/';
 
 	/**
 	 * Uninstall URL
 	 */
-	const UNINSTALL_URL = 'call/call.Plugin.uninstall.php';
+	const UNINSTALL_URL = 'plugin/uninstall/';
 
 	/**
 	 * Key
@@ -93,7 +93,7 @@ class PluginInstaller {
 			$name = Icon::$ADD;
 		}
 
-		return Ajax::window('<a href="'.self::INSTALL_URL.'?key='.$key.'">'.Ajax::tooltip($name, __('Install plugin') ).'</a>');
+		return Ajax::window('<a href="'.self::INSTALL_URL.$key.'">'.Ajax::tooltip($name, __('Install plugin') ).'</a>');
 	}
 
 	/**
@@ -106,6 +106,6 @@ class PluginInstaller {
 			$name = Icon::$DELETE;
 		}
 
-		return Ajax::window('<a href="'.self::UNINSTALL_URL.'?key='.$key.'">'.Ajax::tooltip($name, __('Uninstall plugin') ).'</a>');
+		return Ajax::window('<a href="'.self::UNINSTALL_URL.$key.'">'.Ajax::tooltip($name, __('Uninstall plugin') ).'</a>');
 	}
 }

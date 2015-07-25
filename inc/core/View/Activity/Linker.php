@@ -36,31 +36,31 @@ class Linker {
 	 * URL for editing trainings
 	 * @var string
 	 */
-	const EDITOR_URL = 'call/call.Training.edit.php';
+	const EDITOR_URL = 'activity/edit/';
 
 	/**
 	 * URL to elevation info window
 	 * @var string
 	 */
-	const ELEVATION_CORRECTION_URL = 'call/call.Training.elevationCorrection.php';
+	const ELEVATION_CORRECTION_URL = 'activity/elevationcorrection/';
 
 	/**
 	 * URL to elevation info window
 	 * @var string
 	 */
-	const ELEVATION_INFO_URL = 'call/call.Training.elevationInfo.php';
+	const ELEVATION_INFO_URL = 'activity/elevationinfo/';
 
 	/**
 	 * URL to vdot info window
 	 * @var string
 	 */
-	const VDOT_INFO_URL = 'call/call.Training.vdotInfo.php';
+	const VDOT_INFO_URL = 'activity/vdot/';
 
 	/**
 	 * URL to rounds info window
 	 * @var string
 	 */
-	const ROUNDS_INFO_URL = 'call/call.Training.roundsInfo.php';
+	const ROUNDS_INFO_URL = 'activity/rounds/';
 
 	/**
 	 * Construct linker
@@ -87,7 +87,7 @@ class Linker {
 	 * @return string
 	 */
 	public function editUrl() {
-		return self::EDITOR_URL.'?id='.$this->Activity->id();
+		return self::EDITOR_URL.''.$this->Activity->id();
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Linker {
 	 * @return string
 	 */
 	public function urlToElevationCorrection() {
-		return self::ELEVATION_CORRECTION_URL.'?id='.$this->Activity->id();
+		return self::ELEVATION_CORRECTION_URL.$this->Activity->id();
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Linker {
 	 * @return string
 	 */
 	public function urlToElevationInfo($data = '') {
-		return self::ELEVATION_INFO_URL.'?id='.$this->Activity->id().'&'.$data;
+		return self::ELEVATION_INFO_URL.$this->Activity->id().'?'.$data;
 	}
 
 	/**
@@ -169,7 +169,7 @@ class Linker {
 	 * @return string
 	 */
 	public function urlToVDOTinfo($data = '') {
-		return self::VDOT_INFO_URL.'?id='.$this->Activity->id().'&'.$data;
+		return self::VDOT_INFO_URL.$this->Activity->id().'?'.$data;
 	}
 
 	/**
@@ -178,7 +178,7 @@ class Linker {
 	 * @return string
 	 */
 	public function urlToRoundsInfo($data = '') {
-		return self::ROUNDS_INFO_URL.'?id='.$this->Activity->id().'&'.$data;
+		return self::ROUNDS_INFO_URL.$this->Activity->id().'?'.$data;
 	}
 
 	/**
@@ -199,7 +199,7 @@ class Linker {
 		if ($linkClass != '')
 			$linkId .= ' class="'.$linkClass.'"';
 
-		return Ajax::window('<a'.$linkId.' href="'.self::EDITOR_URL.'?id='.$id.'">'.$text.'</a>', 'small');
+		return Ajax::window('<a'.$linkId.' href="'.self::EDITOR_URL.$id.'">'.$text.'</a>', 'small');
 	}
 
 	/**
