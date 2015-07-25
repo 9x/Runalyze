@@ -9,7 +9,6 @@ class SettingsController
     public function DefaultAction($key='config_tab_general')
     {
         $Frontend = new \Frontend();
-
         $ConfigTabs = new \ConfigTabs();
         $ConfigTabs->addDefaultTab(new \ConfigTabGeneral());
         $ConfigTabs->addTab(new \ConfigTabPlugins());

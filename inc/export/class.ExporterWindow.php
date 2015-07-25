@@ -17,7 +17,7 @@ class ExporterWindow {
 	 * URL for window
 	 * @var string
 	 */
-	static public $URL = 'call/call.Exporter.export.php';
+	static public $URL = 'activity/export/';
 
 	/**
 	 * Training ID
@@ -28,8 +28,8 @@ class ExporterWindow {
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
-		$this->TrainingID = Request::sendId();
+	public function __construct($id) {
+		$this->TrainingID = $id;
 
 		$this->handleRequest();
 	}
@@ -74,14 +74,14 @@ class ExporterWindow {
 		$Exporter->display();
 
 		echo '<p class="text">&nbsp;</p>';
-		echo '<p class="text">'.Ajax::window('<a href="'.self::$URL.'?id='.$this->TrainingID.'">&laquo; '.__('back to list').'</a>', 'small').'</p>';
+		echo '<p class="text">'.Ajax::window('<a href="'.self::$URL.$this->TrainingID.'">?laquo; '.__('back to list').'</a>', 'small').'</p>';
 	}
 
 	/**
 	 * Display list
 	 */
 	protected function displayExporterList() {
-		$ListView = new ExporterListView();
+		$ListView = new ExporterListView($this->TrainingID);
 		$ListView->display();
 
 		$this->displayPrivacyInfo();
@@ -100,10 +100,10 @@ class ExporterWindow {
 
 		if (!$Activity->isPublic()) {
 			echo HTML::info( __('The training is currently <strong>private</strong>').'<br>
-				'.Ajax::window('<a href="'.self::$URL.'?id='.$this->TrainingID.'&public=true">&nbsp;&raquo; '.__('make it public').'</a>', 'small'));
+				'.Ajax::window('<a href="'.self::$URL.$this->TrainingID.'?public=true">&nbsp;&raquo; '.__('make it public').'</a>', 'small'));
 		} else {
 			echo HTML::info( __('The training is currently <strong>public</strong>').'<br>
-				'.Ajax::window('<a href="'.self::$URL.'?id='.$this->TrainingID.'&public=false">&nbsp;&raquo; '.__('make it private').'</a>', 'small'));
+				'.Ajax::window('<a href="'.self::$URL.$this->TrainingID.'?public=false">&nbsp;&raquo; '.__('make it private').'</a>', 'small'));
 		}
 	}
 
@@ -133,7 +133,7 @@ class ExporterWindow {
 			foreach ($ListOfFiles as $i => $File) {
 				$String = $File.', '.Filesystem::getFilesize(FRONTEND_PATH.'export/files/'.$File);
 				$Link   = '<a href="inc/export/files/'.$File.'" target="_blank">'.$String.'</a>';
-				$Delete = Ajax::window('<a class="right small" href="'.self::$URL.'?id='.$this->TrainingID.'&delete='.($i+1).'">['.__('delete').']</a>', 'small');
+				$Delete = Ajax::window('<a class="right small" href="'.self::$URL.$this->TrainingID.'&delete='.($i+1).'">['.__('delete').']</a>', 'small');
 
 				$Fieldset->addFileBlock($Delete.$Link);
 			}

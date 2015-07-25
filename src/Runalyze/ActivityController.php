@@ -28,8 +28,14 @@ class ActivityController
 
         $Context = new Context($id, \SessionAccountHandler::getId());
         $View = new \TrainingView($Context);
-        $View->display();
-        return '';
+        return new Response($View->display());
+    }
+    
+    public function exportAction($id) {
+        $Frontend = new \Frontend();
+
+        $View = new \ExporterWindow($id);
+        return new Response($View->display());
     }
     
     /*
@@ -60,8 +66,8 @@ class ActivityController
         }
 
         $Window = new \ImporterWindow();
-        $Window->display();
-        return '';
+        return new Response($Window->display());
+        
     }
 
     /*
@@ -139,8 +145,7 @@ class ActivityController
         $Frontend = new \Frontend();
 
         $ElevationInfo = new \ElevationInfo(new Context($id, \SessionAccountHandler::getId()));
-        $ElevationInfo->display();
-        return '';
+        return new Response($ElevationInfo->display());
     }
     
     public function ElevationCorrectionAction($id) {
@@ -181,15 +186,21 @@ class ActivityController
         $Frontend = new \Frontend();
 
         $Window = new Window(new Context($id, \SessionAccountHandler::getId()));
-        $Window->display();
-        return '';
+        return new Response($Window->display());
+        
     }
     
     public function vdotAction($id) {
         $Frontend = new \Frontend();
 
         $VDOTinfo = new \VDOTinfo(new Context($id, \SessionAccountHandler::getId()));
-        $VDOTinfo->display();
-        return '';
+        return new Response($VDOTinfo->display());
+    }
+    
+    public function MetaCourseAction($id) {
+        $Frontend = new \FrontendShared(true);
+
+        $Meta = new \HTMLMetaForFacebook($id);
+        return new Response($Meta->displayCourse());
     }
 }

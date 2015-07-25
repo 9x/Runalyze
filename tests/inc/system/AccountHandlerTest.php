@@ -123,7 +123,7 @@ class AccountHandlerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @covers AccountHandler::tryToActivateAccount
 	 */
-	public function testTryToActivateAccount($hash) {
+	public function testTryToActivateAccount() {
 		DB::getInstance()->exec('TRUNCATE TABLE `runalyze_account`');
 
 		DB::getInstance()->insert('account',
@@ -132,7 +132,7 @@ class AccountHandlerTest extends PHPUnit_Framework_TestCase {
 		);
 
 		$_GET['activate'] = '';
-		$this->assertEquals( false, AccountHandler::tryToActivateAccount() );
+		$this->assertEquals( false, AccountHandler::tryToActivateAccount($_GET['activate']) );
 
 		$_GET['activate'] = '908a098ef7e6cb87de7a6';
 		$this->assertEquals( false, AccountHandler::tryToActivateAccount($_GET['activate']) );

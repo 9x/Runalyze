@@ -35,7 +35,7 @@ class PluginController
         $Factory = new \PluginFactory();
 
         if (isset($_GET['key'])) {
-                $Factory->uninstallPlugin( filter_input(INPUT_GET, 'id') );
+                $Factory->uninstallPlugin($id);
 
                 echo \Ajax::wrapJSforDocumentReady('Runalyze.Overlay.load("plugin/config");');
         } elseif (isset($id) && is_numeric($id)) {

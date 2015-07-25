@@ -15,12 +15,19 @@ class ExporterListView {
 	 * @var array
 	 */
 	protected $Formats = array();
-
+        
+	/**
+	 * Training ID
+	 * @var int
+	 */
+	protected $TrainingID = 0;
+        
 	/**
 	 * Exporter
 	 */
-	public function __construct() {
+	public function __construct($trainingsid) {
 		$this->readPossibleFiletypes();
+                $this->TrainingID = $trainingsid;
 	}
 
 	/**
@@ -54,7 +61,7 @@ class ExporterListView {
 			$List->addCSSclass('blocklist-inline clearfix');
 
 			foreach ($Formats as $Format) {
-				$URL  = ExporterWindow::$URL.'?id='.Request::sendId().'&type='.$Format;
+				$URL  = ExporterWindow::$URL.$this->TrainingID.'?type='.$Format;
 				$List->addLinkWithIcon($URL, $Format, call_user_func( array('Exporter'.$Format, 'IconClass')));
 			}
 

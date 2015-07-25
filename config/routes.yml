@@ -59,6 +59,10 @@ activity_search:
     path: /activity/search
     defaults: { _controller: 'Runalyze\ActivityController::searchAction' }
     
+activity_export:
+    path: /activity/export/{id}
+    defaults: { _controller: 'Runalyze\ActivityController::exportAction' }
+    
 activity_create:
     path: /activity/create
     defaults: { _controller: 'Runalyze\ActivityController::createAction' }    
@@ -99,10 +103,10 @@ plot_sum_type:
 
 #Plugin, Panels, TOols
 panel_move:
-    path: /panel/move/{id}
+    path: /plugin/move/{id}
     defaults: { _controller: 'Runalyze\PluginController::PanelMoveAction' }
 panel_clap:
-    path: /panel/clap/{id}
+    path: /plugin/clap/{id}
     defaults: { _controller: 'Runalyze\PluginController::PanelClapAction' }
 panel_display:
     path: /plugin/display
@@ -135,3 +139,8 @@ databrowser:
 site:
     path: /{sitename}
     defaults: { _controller: 'Runalyze\HomeController::SiteAction' }
+    
+#others
+facebook_metacourse:
+    path: /activity/metacourse/{id}
+    defaults: { _controller: 'Runalyze\ActivityController::metaCourseAction' }  

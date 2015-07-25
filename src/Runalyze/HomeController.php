@@ -52,9 +52,10 @@ class HomeController
     }
     
     public function logoutAction() {
-        $Frontend = new \Frontend(true);
+       $Frontend = new \Frontend(true);
        \SessionAccountHandler::logout(); 
        header('Location: '.\System::getFullDomain().'login');
+       return '';
     }
     
  
@@ -125,7 +126,8 @@ class HomeController
         $Frontend = new \Frontend(true);
         if($_GET['true']) 
             $deleteAccount = \AccountHandler::tryToDeleteAccount($hash);
-        
+        if (isset($_GET['delete'])) 
+            SessionAccountHandler::logout();
                 
         $response =  $app['twig']->render('deleteAccount.html.twig', array(
                     'deleteAccount' => $deleteAccount,
@@ -234,4 +236,5 @@ class HomeController
     {
         return new Response($app['twig']->render('sites/'.$sitename.'.twig'));
     }
+    
 }

@@ -40,6 +40,12 @@ class HTMLMetaForFacebook {
 	 */
 	protected $TrackdataLoop;
 
+        /*
+         * TrainingID
+         * @var int
+         */
+        protected $TrainingID;
+        
 	/**
 	 * Properties
 	 * @var array
@@ -49,7 +55,8 @@ class HTMLMetaForFacebook {
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	public function __construct($id) {
+            $this->TrainingID = $id;
 		if ($this->canFindActivityID()) {
 			$this->setContext();
 
@@ -63,7 +70,7 @@ class HTMLMetaForFacebook {
 	 * Set context
 	 */
 	private function setContext() {
-		$this->Context = new Context(SharedLinker::getTrainingId(), SessionAccountHandler::getId());
+		$this->Context = new Context($this->TrainingID, SessionAccountHandler::getId());
 	}
 
 	/**
@@ -71,7 +78,7 @@ class HTMLMetaForFacebook {
 	 * @return boolean
 	 */
 	protected function canFindActivityID() {
-		return Request::isOnSharedPage() && SharedLinker::getTrainingId() > 0;
+		return Request::isOnSharedPage() && $this->TrainingID > 0;
 	}
 
 	/**
@@ -128,7 +135,7 @@ class HTMLMetaForFacebook {
 		}
 
 		if (!empty($this->Properties) && $this->Context->hasRoute() && $this->Context->route()->hasPositionData()) {
-			echo '<link rel="opengraph" href="'.System::getFullDomain().'call/call.MetaCourse.php?id='.$this->Context->activity()->id().'&account='.SessionAccountHandler::getId().'">';
+			echo '<link rel="opengraph" href="'.System::getFullDomain().'activity/metacourse/'.$this->Context->activity()->id().'?account='.SessionAccountHandler::getId().'">';
 		}
 	}
 
