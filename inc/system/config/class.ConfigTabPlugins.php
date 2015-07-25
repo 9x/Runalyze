@@ -22,7 +22,7 @@ class ConfigTabPlugins extends ConfigTab {
 	 * @return string 
 	 */
 	static public function getExternalUrl() {
-		return ConfigTabs::$CONFIG_URL.'?key=config_tab_plugins&external=true';
+		return ConfigTabs::$CONFIG_URL.'config_tab_plugins?external=true';
 	}
 
 	/**

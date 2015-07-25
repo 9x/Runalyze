@@ -28,8 +28,8 @@ class Design extends \Runalyze\Configuration\Category {
 	 * Create handles
 	 */
 	protected function createHandles() {
-		$this->createHandle('DESIGN_BG_FILE', new SelectFile('img/backgrounds/Default.jpg', array(
-			'folder' => 'img/backgrounds/',
+		$this->createHandle('DESIGN_BG_FILE', new SelectFile('assets/images/backgrounds/Default.jpg', array(
+			'folder' => 'assets/images/backgrounds/',
 			'extensions' => array('jpg', 'png', 'gif', 'jpeg', 'svg', 'tiff', 'bmp')
 		)));
 	}

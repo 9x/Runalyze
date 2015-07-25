@@ -76,7 +76,17 @@ plot_sum_type:
     defaults: { _controller: 'Runalyze\PlotController::sumAction' }   
     
  
-    
+panel_move:
+    path: /panel/move/{id}
+    defaults: { _controller: 'Runalyze\PluginController::PanelMoveAction' }
+panel_clap:
+    path: /panel/clap/{id}
+    defaults: { _controller: 'Runalyze\PluginController::PanelClapAction' }
+panel_display:
+    path: /plugin/display
+    defaults: { _controller: 'Runalyze\PluginController::PanelDisplayAction' }
+
+      
 plugin:
     path: /plugin/{id}
     defaults: { _controller: 'Runalyze\PluginController::DefaultAction' }

@@ -57,5 +57,33 @@ class PluginController
         \PluginTool::displayToolsContent();
         return '';
     }
- 
+    
+    public function PanelMoveAction($id) {
+        $Frontend = new \Frontend();
+        if (is_numeric($id)) {
+                $Factory = new \PluginFactory();
+                $Panel = $Factory->newInstanceFor($id);
+
+                if ($Panel->type() == \PluginType::Panel) {
+                        $Panel->move($id);
+                }
+        }
+    }
+    
+    public function PanelClapAction($id) {
+        $Frontend = new \Frontend();
+
+        if (is_numeric($id)) {
+                $Factory = new \PluginFactory();
+                $Panel = $Factory->newInstanceFor( $id );
+
+                if ($Panel->type() == \PluginType::Panel) {
+                        $Panel->clap();
+                }
+        }
+    }
+    public function PanelDisplayAction() {
+        $Frontend = new \Frontend();
+        $Frontend->displayPanels();
+    }
 }
