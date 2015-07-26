@@ -1,3 +1,7 @@
 plugin_panel_rechenspiele_info:
     path: info
     defaults: { _controller: 'Runalyze\PanelRechenspieleController::infoAction' }
+    
+plugin_panel_rechenspiele_windows:
+    path: window
+    defaults: { _controller: 'Runalyze\PanelRechenspieleController::windowAction' }
