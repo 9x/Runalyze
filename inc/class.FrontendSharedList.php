@@ -17,6 +17,8 @@ class FrontendSharedList extends FrontendShared {
 	 * @var array 
 	 */
 	protected $User = array();
+        
+        public $username = '';
 
 	/**
 	 * Display the HTML-Header
@@ -50,7 +52,7 @@ class FrontendSharedList extends FrontendShared {
 	 * Init user 
 	 */
 	protected function initUser() {
-		$this->User = AccountHandler::getDataFor(Request::param('user'));
+		$this->User = AccountHandler::getDataFor($this->username);
 	}
 
 	/**

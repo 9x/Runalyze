@@ -116,7 +116,7 @@ class Form extends StandardFormular {
 	 */
 	protected function initDeleteFieldset() {
 		$DeleteText = '<strong>'.__('Permanently delete this activity').' &raquo;</strong>';
-		$DeleteUrl  = $_SERVER['SCRIPT_NAME'].'?delete='.$this->dataObject->id();
+		$DeleteUrl  = $_SERVER['REQUEST_URI'].'?delete='.$this->dataObject->id();
 		$DeleteLink = Ajax::link($DeleteText, 'ajax', $DeleteUrl);
 
 		$Fieldset = new FormularFieldset( __('Delete activity') );

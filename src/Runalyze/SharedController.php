@@ -1,8 +1,12 @@
 <?php
 namespace Runalyze;
- 
+
+require '../inc/class.FrontendShared.php';
+require '../inc/class.FrontendSharedList.php';
+
 use Symfony\Component\HttpFoundation\Response;
 use Silex\Application;
+
 
 /**
  * SharedController
@@ -11,10 +15,10 @@ use Silex\Application;
  * @copyright http://www.runalyze.de/
  */
 class SharedController {
-    public function ActivityAction() {
+    public function ActivityAction($id) {
         $Frontend = new \FrontendShared();
 
-        if (FrontendShared::$IS_IFRAME)
+        if (\FrontendShared::$IS_IFRAME)
                 echo '<div id="statistics-inner" class="panel" style="width:97%;margin:0 auto;">';
         elseif (!Request::isAjax())
                 echo '<div id="statistics-inner" class="panel" style="width:960px;margin:5px auto;">';
@@ -24,9 +28,10 @@ class SharedController {
         $Frontend->displaySharedView();
 
         echo '</div>';
+        return '';
     }
     
-    public function ListAction() {
+    public function ListAction($username = '') {
         if (isset($_GET['view'])) {
                 if ($_GET['view'] == 'monthkm') {
                         $_GET['type'] = 'month';
@@ -39,8 +44,8 @@ class SharedController {
                 }
         }
 
-        $Frontend = new \FrontendSharedList();
-
+        $Frontend = new \FrontendSharedList;
+        $Frontend->username = $username;
         if (!\Request::isAjax()) {
                 if ($Frontend->userAllowsStatistics()) {
                         echo '<div class="panel" style="width:960px;margin:5px auto;">';
@@ -54,7 +59,7 @@ class SharedController {
 
         $Frontend->displaySharedView();
 
-        if (!\Request::isAjax()) {
+        if (!Request::isAjax()) {
                 echo '</div>';
                 echo '</div>';
 
@@ -67,6 +72,6 @@ class SharedController {
                 </div>
         </div>';
         }
-        
+     return '';   
     }
 }

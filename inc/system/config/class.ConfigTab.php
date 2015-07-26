@@ -81,7 +81,7 @@ abstract class ConfigTab {
 	 * Display formular
 	 */
 	private function displayFormular() {
-		$this->Formular = new Formular($this->getUrl().'&form=true');
+		$this->Formular = new Formular($this->getUrl().'?form=true');
 
 		$this->setFieldsetsAndFields();
 

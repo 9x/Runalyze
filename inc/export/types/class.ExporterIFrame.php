@@ -64,7 +64,7 @@ class ExporterIFrame extends ExporterAbstract {
 		$FieldsetPreview = new FormularFieldset( __('Preview') );
 		$FieldsetPreview->addBlock($Code);
 
-		$Formular = new Formular( $_SERVER['SCRIPT_NAME'].'?type=IFrame&id='.$this->Context->activity()->id() );
+		$Formular = new Formular( $_SERVER['REQUEST_URI'].'?type=IFrame&id='.$this->Context->activity()->id() );
 		$Formular->addCSSclass('ajax');
 		$Formular->addCSSclass('no-automatic-reload');
 		$Formular->addFieldset($FieldsetCode);

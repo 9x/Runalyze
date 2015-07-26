@@ -145,3 +145,11 @@ site:
 facebook_metacourse:
     path: /activity/metacourse/{id}
     defaults: { _controller: 'Runalyze\ActivityController::metaCourseAction' }  
+    
+#shared
+shared_activity:
+    path: /shared/{id}
+    defaults: { _controller: 'Runalyze\SharedController::ActivityAction' } 
+shared_list:
+    path: /shared/{user}/
+    defaults: { _controller: 'Runalyze\SharedController::ListAction' } 

@@ -108,7 +108,7 @@ class TrainingFormular extends StandardFormular {
 	 */
 	protected function initDeleteFieldset() {
 		$DeleteText = '<strong>'.__('Permanently delete this activity').' &raquo;</strong>';
-		$DeleteUrl  = $_SERVER['SCRIPT_NAME'].'?delete='.$this->dataObject->id();
+		$DeleteUrl  = $_SERVER['REQUEST_URI'].'?delete='.$this->dataObject->id();
 		$DeleteLink = Ajax::link($DeleteText, 'ajax', $DeleteUrl);
 
 		$Fieldset = new FormularFieldset( __('Delete activity') );
@@ -132,7 +132,7 @@ class TrainingFormular extends StandardFormular {
 		$Fieldset->setConfValueToSaveStatus('ELEVATION');
 
 		$Fieldset->addInfo('
-			<a class="ajax" target="gps-results" href="call/call.Training.elevationCorrection.php?id='.$this->dataObject->id().'"><strong>'.__('Correct elevation data').'</strong></a><br>
+			<a class="ajax" target="gps-results" href="activity/elevationCorrection/'.$this->dataObject->id().'"><strong>'.__('Correct elevation data').'</strong></a><br>
 			<br>
 			<small id="gps-results" class="block">
 				'.__('Elevation data via GPS is very inaccurate. Therefore you can correct it via some satellite data.').'

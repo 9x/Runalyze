@@ -77,7 +77,6 @@ class FrontendShared extends Frontend {
 	 * Init training
 	 */
 	private function initTraining() {
-		// TODO: Cache?
 		$this->ActivityContext = new Activity\Context(SharedLinker::getTrainingId(), SessionAccountHandler::getId());
 
 		if ($this->ActivityContext->activity()->id() <= 0) {
@@ -156,7 +155,7 @@ class FrontendShared extends Frontend {
 	 */
 	protected function displayLinkToRunalyze() {
 		$List = new BlocklinkList();
-		$List->addCompleteLink('<a class="nopadding" href="http://www.runalyze.de/" title="Runalyze - Online Lauftagebuch"><strong>&raquo;&nbsp;runalyze.de</strong></a>');
+		$List->addCompleteLink('<a class="nopadding" href="https://www.runalyze.com/" title="Runalyze - Online Lauftagebuch"><strong>&raquo;&nbsp;runalyze.com</strong></a>');
 		$List->display();
 	}
 
