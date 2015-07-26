@@ -1,0 +1,7 @@
+plugin_panel_prognose_window:
+    path: window
+    defaults: { _controller: 'Runalyze\PanelPrognoseController::WindowAction' }
+    
+plugin_panel_prognose_plot:
+    path: plot
+    defaults: { _controller: 'Runalyze\PanelPrognoseController::PlotAction' }

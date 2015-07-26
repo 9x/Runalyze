@@ -1,6 +1,8 @@
 <?php
 require '../inc/class.Frontend.php';
 require_once '../vendor/autoload.php';
+require_once '../plugin/RunalyzePluginPanel_Prognose/PanelPrognoseController.php';
+require_once '../plugin/RunalyzePluginPanel_Rechenspiele/PanelRechenspieleController.php';
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
@@ -30,66 +32,5 @@ $app['routes'] = $app->extend('routes', function (RouteCollection $routes, Appli
  
     return $routes;
 });
- /*
-
-
-$app->match('/login', function() use($app)
-{
-    $Frontend = new Frontend(true);
-    $stat = userStat();
-    $cookieinfo = cookeInfo();
-    //Cooke information
-     $path = 'login';
-    
-    return $app['twig']->render('login.twig', array(
-	'RUNALYZE_VERSION' => RUNALYZE_VERSION,
-	'numUserOnline' => $stat['online'],
-	'numUser' => $stat['user'],
-	'numKm' => $stat['km'],
-        'errorType' => SessionAccountHandler::$ErrorType,
-        'cookieInfo' => $cookieinfo,
-        'switchpath' => $path,
-        'forgotpw' => $forgotpw,
-        'USER_CAN_REGISTER' => USER_CAN_REGISTER,
-        'regError' => $RegistrationErrors,
-    ));
-});
-
-$app->get('/login', function() use($app)
-{
-    
-});
-
-$app->match('/activity/{id}', function(Request $request) use($app){
-$Frontend = new Frontend();
-
-$Context = new Context($request->get('id'), SessionAccountHandler::getId());
-$View = new TrainingView($Context);
-$View->display();
-return '';
-});
-
-
-$app->match('/plugin', function(Request $request) use($app) {
-$Frontend = new Frontend();
-$Factory = new PluginFactory();
-
-try {
-	$Plugin = $Factory->newInstanceFor( filter_input(INPUT_GET, 'id') );
-} catch (Exception $E) {
-	$Plugin = null;
-
-	echo HTML::error( __('The plugin could not be found.') );
-}
-
-if ($Plugin !== null) {
-	if ($Plugin instanceof PluginPanel) {
-		$Plugin->setSurroundingDivVisible(false);
-	}
-
-	$Plugin->display();
-}
-});
-*/
 
 $app->run();

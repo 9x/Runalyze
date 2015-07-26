@@ -1,5 +1,10 @@
 <?php
+namespace Runalyze;
+use Symfony\Component\HttpFoundation\Response;
+use Silex\Application;
+use Runalyze\Activity\Distance;
 require_once 'class.Prognose_PrognosisWindow.php';
+
 /**
  * PanelPrognoseController
  *
@@ -7,14 +12,7 @@ require_once 'class.Prognose_PrognosisWindow.php';
  */
 class PanelPrognoseController {
     
-    public function prognosisAction() {
-        $Frontend = new \Frontend();
-
-        $Window = new \Prognose_PrognosisWindow();
-        $Window->display();
-    }
-    
-  /*  public function prognosePlotAction() {
+    public function plotAction() {
         $Frontend = new \Frontend();
 
         $Factory = new \PluginFactory();
@@ -30,8 +28,8 @@ class PanelPrognoseController {
         $Submenu = '';
         foreach ($distances as $km) {
                 $km = trim($km);
-                $link = 'plugin/RunalyzePluginPanel_Prognose/window.plot.php?distance='.$km;
-                $Submenu .= '<li'.($km == $distance ? ' class="active"' : '').'>'.\Ajax::window('<a href="'.$link.'">'.\Distance::format($km, \Distance::FORMAT_AUTO).'</a>').'</li>';
+                $link = 'plugin/panel/prognose/plot?distance='.$km;
+                $Submenu .= '<li'.($km == $distance ? ' class="active"' : '').'>'.\Ajax::window('<a href="'.$link.'">'.Distance::format($km, Distance::FORMAT_AUTO).'</a>').'</li>';
         }
         ?>
         <div class="panel-heading">
@@ -46,7 +44,7 @@ class PanelPrognoseController {
         <div class="panel-content">
                 <?php
                 echo \Plot::getDivFor('formverlauf_'.str_replace('.', '_', $distance), 800, 450);
-                include FRONTEND_PATH.'../plugin/RunalyzePluginPanel_Prognose/Plot.Form.php';
+                include FRONTEND_PATH.'../plugin/panel/prognose/plot';
                 ?>
 
                 <p class="info">
@@ -56,6 +54,16 @@ class PanelPrognoseController {
                 <p class="info">
                         <?php _e('The basic endurance adjustment is <strong>not</strong> used for these calculations.'); ?>
                 </p>
-        </div>?>
-    }*/
+        </div>
+        <?php
+        return '';
+    }
+    
+    public function windowAction() {
+        $Frontend = new \Frontend();
+        $Window = new \Prognose_PrognosisWindow();
+        return new Response($Window->display());
+        
+    }
+
 }
