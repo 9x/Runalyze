@@ -13,7 +13,7 @@ class ConfigTabs {
 	 * URL for config-window
 	 * @var string
 	 */
-	public static $CONFIG_URL = 'settings/';
+	public static $CONFIG_URL = 'settings';
 
 	/**
 	 * HTML-ID for div
@@ -38,6 +38,12 @@ class ConfigTabs {
 	 * @var string
 	 */
 	protected $defaultKey = '';
+        
+	/**
+	 * Current key
+	 * @var string
+	 */
+	protected $currentKey = '';
 
 	/**
 	 * Add message after submit
@@ -130,11 +136,18 @@ class ConfigTabs {
 	 * @return string
 	 */
 	protected function getCurrentKey() {
-		$CurrentKey = Request::param('key');
-               
+                $CurrentKey = $this->currentKey;
 		if (empty($CurrentKey))
 			$CurrentKey = $this->defaultKey;
 
 		return $CurrentKey;
 	}
+        
+        /*
+         * Set current key
+         * @var string
+         */
+        public function setCurrentKey($key) {
+            $this->currentKey = $key;
+        }
 }

@@ -42,14 +42,15 @@ userforgotpw:
     defaults: { _controller: 'Runalyze\HomeController::changePasswordAction' }
  
 # Settings 
-settings:
-    path: /settings
-    defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
     
 settingswithkey:
     path: /settings/{key}
     defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
-     
+    
+settings:
+    path: /settings
+    defaults: { _controller: 'Runalyze\SettingsController::DefaultAction' }
+    
 # Activity
 activity_edit:
     path: /activity/edit/{id}

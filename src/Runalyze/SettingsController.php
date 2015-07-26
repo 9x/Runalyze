@@ -10,6 +10,7 @@ class SettingsController
     {
         $Frontend = new \Frontend();
         $ConfigTabs = new \ConfigTabs();
+        $ConfigTabs->setCurrentKey($key);
         $ConfigTabs->addDefaultTab(new \ConfigTabGeneral());
         $ConfigTabs->addTab(new \ConfigTabPlugins());
         $ConfigTabs->addTab(new \ConfigTabDataset());
