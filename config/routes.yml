@@ -148,6 +148,7 @@ plugin_panel_prognose:
 plugin_panel_rechenspiele:
     prefix: /plugin/panel/rechenspiele
     resource: ../plugin/RunalyzePluginPanel_Rechenspiele/routes.yml
+
 #others
 facebook_metacourse:
     path: /activity/metacourse/{id}

@@ -12,9 +12,12 @@ use Runalyze\Activity\Distance;
  */
 class PanelRechenspieleController {
     
-    public function infoAction() {
+    public function infoAction(Application $app) {
         $Frontend = new \Frontend();
-        return new Response($app['twig']->render('info.twig'));
+        $app['twig.loader.filesystem']->addPath(
+            '../plugin/RunalyzePluginPanel_Rechenspiele/view'
+        );
+        return new Response($app['twig']->render('info.html.twig'));
     }
 
     public function windowAction() {

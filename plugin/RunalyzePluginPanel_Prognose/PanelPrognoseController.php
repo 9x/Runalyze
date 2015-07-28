@@ -44,7 +44,7 @@ class PanelPrognoseController {
         <div class="panel-content">
                 <?php
                 echo \Plot::getDivFor('formverlauf_'.str_replace('.', '_', $distance), 800, 450);
-                include FRONTEND_PATH.'../plugin/panel/prognose/plot';
+                include 'Plot.Form.php';
                 ?>
 
                 <p class="info">

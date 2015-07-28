@@ -3,6 +3,7 @@ require '../inc/class.Frontend.php';
 require_once '../vendor/autoload.php';
 require_once '../plugin/RunalyzePluginPanel_Prognose/PanelPrognoseController.php';
 require_once '../plugin/RunalyzePluginPanel_Rechenspiele/PanelRechenspieleController.php';
+
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
